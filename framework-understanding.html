@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Playwright Framework Understanding</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #4b5563;
+      --accent: #0f766e;
+      --border: #e5e7eb;
+    }
+
+    body {
+      margin: 0;
+      font-family: Segoe UI, Tahoma, sans-serif;
+      background: linear-gradient(135deg, #f6f7fb 0%, #eef6ff 100%);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 28px auto;
+      padding: 0 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+      color: #0b4a44;
+    }
+
+    code, pre {
+      background: #f3f4f6;
+      border-radius: 6px;
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    code {
+      padding: 2px 6px;
+    }
+
+    pre {
+      padding: 12px;
+      overflow-x: auto;
+      border: 1px solid #e5e7eb;
+    }
+
+    ul {
+      margin-top: 8px;
+    }
+
+    .ok {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #dcfce7;
+      color: #166534;
+      font-weight: 600;
+      border: 1px solid #bbf7d0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Playwright Test Framework Understanding</h1>
+      <p>This project is a Java-based Playwright automation framework using JUnit 5 and Page Object Model (POM).</p>
+      <p><span class="ok">Test Status: Ready (2 tests passed)</span></p>
+    </div>
+
+    <div class="card">
+      <h2>1) What This Framework Automates</h2>
+      <p>Demo website: <strong>https://www.saucedemo.com/</strong></p>
+      <ul>
+        <li>Valid login test checks successful navigation to inventory page.</li>
+        <li>Invalid login test checks expected error message.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>2) Framework Design</h2>
+      <div class="grid">
+        <div>
+          <h3>Base Layer</h3>
+          <p><code>PlaywrightFactory</code> creates and closes Playwright, Browser, Context, and Page objects.</p>
+        </div>
+        <div>
+          <h3>Utilities Layer</h3>
+          <p><code>ConfigReader</code> loads values from <code>config.properties</code>.</p>
+        </div>
+        <div>
+          <h3>Page Layer</h3>
+          <p><code>LoginPage</code> and <code>InventoryPage</code> encapsulate UI interactions and page checks.</p>
+        </div>
+        <div>
+          <h3>Test Layer</h3>
+          <p><code>LoginTest</code> controls test flow using setup/teardown + assertions.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>3) Folder Structure</h2>
+      <pre>fleet-sdet-framework/
+|-- pom.xml
+|-- framework-understanding.html
+|-- src/test/resources/config.properties
+|-- src/test/java/com/fleet/framework/base/PlaywrightFactory.java
+|-- src/test/java/com/fleet/framework/utils/ConfigReader.java
+|-- src/test/java/com/fleet/framework/playwright/pages/LoginPage.java
+|-- src/test/java/com/fleet/framework/playwright/pages/InventoryPage.java
+`-- src/test/java/com/fleet/framework/playwright/tests/LoginTest.java</pre>
+    </div>
+
+    <div class="card">
+      <h2>4) Execution Flow</h2>
+      <ol>
+        <li>Test starts and reads <code>baseUrl</code>, username, and password from config.</li>
+        <li><code>PlaywrightFactory</code> opens Microsoft Edge in headless mode.</li>
+        <li><code>LoginPage</code> performs login action.</li>
+        <li><code>InventoryPage</code> validates successful login, or login page validates error text.</li>
+        <li>Browser context and Playwright are closed in teardown.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>5) How To Run</h2>
+      <p>This project uses a local Maven binary under <code>.tools/apache-maven-3.9.9</code> and JDK 17.</p>
+      <pre>PowerShell commands:
+$project = "c:\\Users\\raghu\\OneDrive\\Desktop\\preperation\\SeleniumFW\\fleet-sdet-framework"
+$env:JAVA_HOME = "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.19.10-hotspot"
+$env:Path = "$env:JAVA_HOME\\bin;$env:Path"
+& "$project\\.tools\\apache-maven-3.9.9\\bin\\mvn.cmd" -f "$project\\pom.xml" test</pre>
+    </div>
+
+    <div class="card">
+      <h2>6) Key Benefits</h2>
+      <ul>
+        <li>Clear separation of concerns (Base, Utility, Pages, Tests).</li>
+        <li>Easy maintenance when UI changes (mostly page files need edits).</li>
+        <li>Config-driven credentials and URL for simple environment updates.</li>
+        <li>Scalable foundation for adding more modules and tests.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
